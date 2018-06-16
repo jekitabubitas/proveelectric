@@ -80,14 +80,21 @@
             </div>
 
             <div class="row">
-                <div class="col-xs-offset-8 col-xs-2">
+                <div class="col-xs-offset-5 col-xs-3">
+                    <div class="container">
+                        <div class="row">
+                            <label for="">Descuento:</label>
+                            <input type="text">%
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-2">
                     <table class="">
                         <tr>
                             <td>SUBTOTAL</td>
                             <td><input id="subtotal" style="text-align: right;width: 130px" type="text" value=""></td>
                         </tr>
                         <tr>
-
                             <td>DESCUENTO</td>
                             <td><input id="descuento" style="text-align: right;width: 130px" type="text" value=""></td>
                         </tr>
