@@ -9,44 +9,50 @@
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" id="bootstrap-css">
 </head>
 <body onload="window.print()">
-<h4 style="text-align: center;">Importadora Proveelectric</h4>
-{{$pedido->cliente['NOMBRE']}}
+<h4 style="text-align: center;">IMPORTADORA PROVEELECTRIC</h4>
+
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
             <div class="invoice-title">
-                <h2>Invoice</h2><h3 class="pull-right">Order Id # hxs1234567</h3>
+               <h3 class="pull-right">N.PEDIDO {{$pedido->numero_pedido}}</h3>
             </div>
             <hr>
             <div class="row">
                 <div class="col-xs-6">
                     <address>
-                        <strong>Billed To:</strong><br>
-                        Jeenal Yatishkumar Bhatt<br>
-                        jbhatt@healthxapp.com
+                        <strong>CLIENTE:</strong>
+                        {{$pedido->cliente['NOMBRE']}}
                     </address>
                 </div>
                 <div class="col-xs-6 text-right">
                     <address>
-                        <strong>Shipped To:</strong><br>
-                        206/3 Signet hub near akshar chowk <br>
-                        Vadodara, Gujratn<br>
-                        India, 390023
+                        <strong>CIUDAD:</strong>
+                        {{$pedido->cliente['CIUDAD']}}
                     </address>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-6">
                     <address>
-                        <strong>Payment Method:</strong><br>
-                        <br>
+                        <strong>DIRECCION:</strong>
+                        {{$pedido->cliente['DIRECCION']}}
+
 
                     </address>
                 </div>
                 <div class="col-xs-6 text-right">
                     <address>
-                        <strong>Order Date:</strong><br>
-                        March 7th, 2018<br><br>
+                        <strong>VENDEDOR:</strong>
+                        {{$pedido->vendedor}}
+
+                    </address>
+                </div>
+                <div class="col-xs-6 text-right">
+                    <address>
+                        <strong>FECHA/HORA:</strong>
+                        {{$pedido->created_at}}
+
                     </address>
                 </div>
             </div>
@@ -57,17 +63,17 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><strong>Order summary</strong></h3>
+                    <h4 style="text-align: center;">DETALLE DE PEDIDO</h4>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
                         <table class="table table-condensed">
                             <thead>
                             <tr>
-                                <td><strong>Medication</strong></td>
-                                <td class="text-center"><strong>Strength</strong></td>
-                                <td class="text-center"><strong>Quantity</strong></td>
-                                <td class="text-right"><strong>Price</strong></td>
+                                <td><strong>CODIGO</strong></td>
+                                <td class="text-center"><strong>DESCRIPCION</strong></td>
+                                <td class="text-center"><strong>CANTIDAD</strong></td>
+                                <td class="text-right"><strong>PRECIO</strong></td>
                             </tr>
                             </thead>
                             <tbody>
@@ -87,19 +93,25 @@
                             <tr>
                                 <td class="thick-line"></td>
                                 <td class="thick-line"></td>
-                                <td class="thick-line text-center"><strong>Subtotal</strong></td>
+                                <td class="thick-line text-center"><strong>SUBTOTAL</strong></td>
                                 <td class="thick-line text-right">80 INR</td>
                             </tr>
                             <tr>
                                 <td class="no-line"></td>
                                 <td class="no-line"></td>
-                                <td class="no-line text-center"><strong>Shipping</strong></td>
+                                <td class="no-line text-center"><strong>DESCUENTO</strong></td>
                                 <td class="no-line text-right">15 INR</td>
                             </tr>
                             <tr>
                                 <td class="no-line"></td>
                                 <td class="no-line"></td>
-                                <td class="no-line text-center"><strong>Total</strong></td>
+                                <td class="no-line text-center"><strong>IVA</strong></td>
+                                <td class="no-line text-right">15 INR</td>
+                            </tr>
+                            <tr>
+                                <td class="no-line"></td>
+                                <td class="no-line"></td>
+                                <td class="no-line text-center"><strong>TOTAL</strong></td>
                                 <td class="no-line text-right">95 INR</td>
                             </tr>
                             </tbody>
