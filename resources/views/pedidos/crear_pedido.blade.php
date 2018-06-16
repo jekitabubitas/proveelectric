@@ -87,6 +87,11 @@
                             <td><input id="subtotal" style="text-align: right;width: 130px" type="text" value=""></td>
                         </tr>
                         <tr>
+                            <td><input type="text"></td>
+                            <td>DESCUENTO</td>
+                            <td><input id="descuento" style="text-align: right;width: 130px" type="text" value=""></td>
+                        </tr>
+                        <tr>
                             <td>IVA</td>
                             <td><input id="iva" style="text-align: right;width: 130px" type="text" value=""></td>
                         </tr>
@@ -192,12 +197,14 @@
                 cantidad:$("#cantidad").val(),
                 descripcion:seleccionado.descripcion,
                 precio_unit:seleccionado.precio,
-                precio_total:$("#cantidad").val()*seleccionado.precio
+                precio_total:$("#cantidad").val()*seleccionado.precio,
+                descuento:$("#cantidad").val()*seleccionado.precio
             };
             $("#detallePedido").data("kendoGrid").dataSource.add(linea);
 
             var subtotal=0;
             var total=0;
+            var descuento=0;
 
             $("#detallePedido").data("kendoGrid").dataSource.data().forEach(function (item) {
                 subtotal+=item.precio_total
@@ -210,6 +217,7 @@
 
             $("#producto").data('kendoComboBox').value(null)
             $("#cantidad").val(null)
+            //$("#descuento").val(total*#descuento.toFixed())
         })
 
 
