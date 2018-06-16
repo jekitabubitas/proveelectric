@@ -357,9 +357,9 @@
         }
 
         public function getEdit($id){
-	        //$pedido = Pedido::with([]);
+            $pedido = Pedido::with('detalle')->with('cliente')->find($id);
 
-            $this->cbView("pedidos.crear_pedido",[]);
+            $this->cbView("pedidos.crear_pedido",["pedido",$pedido]);
         }
 
         public function guardarPedido(Request $request){
@@ -396,8 +396,9 @@
             return response()->json($respuesta);
         }
 
-        public function imprimirPedido(){
-            return vieW("pedidos.imprimir");
+        public function imprimirPedido($id){
+            $pedido = Pedido::with('detalle')->with('cliente')->find($id);
+            return vieW("pedidos.imprimir",["pedido"=>$pedido]);
         }
         //By the way, you can still create your own method in here... :)
 

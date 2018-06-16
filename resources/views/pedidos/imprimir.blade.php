@@ -9,7 +9,8 @@
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" id="bootstrap-css">
 </head>
 <body onload="window.print()">
-<H2><IMPORTADORA PROVEELECTRIC</H2>
+<h4 style="text-align: center;">Importadora Proveelectric</h4>
+{{$pedido->cliente['NOMBRE']}}
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
@@ -109,6 +110,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>
