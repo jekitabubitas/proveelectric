@@ -40,6 +40,7 @@
 			# START FORM DO NOT REMOVE THIS LINE
 			$this->form = [];
 			$this->form[] = ['label'=>'RUC','name'=>'RUC','type'=>'number','validation'=>'required|integer|min:0','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'NOMBRE','name'=>'NOMBRE','type'=>'text','validation'=>'required','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'CIUDAD','name'=>'CIUDAD','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'TELEFONO','name'=>'TELEFONO','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'DIRECCION','name'=>'DIRECCION','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];

@@ -46,12 +46,13 @@
 			$this->form[] = ['label'=>'NOMBRE','name'=>'NOMBRE','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'RSOCIAL','name'=>'RSOCIAL','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'DIRECCION','name'=>'DIRECCION','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
-			$this->form[] = ['label'=>'TELEFONO','name'=>'TELEFONO','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
+			$this->form[] = ['label'=>'TELEFONO','name'=>'TELEFONO','type'=>'number','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			$this->form[] = ['label'=>'CIUDAD','name'=>'CIUDAD','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			# END FORM DO NOT REMOVE THIS LINE
 
 			# OLD START FORM
 			//$this->form = [];
+			//$this->form[] = ['label'=>'RUC','name'=>'ruc','type'=>'number','validation'=>'required','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'NOMBRE','name'=>'NOMBRE','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'RSOCIAL','name'=>'RSOCIAL','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
 			//$this->form[] = ['label'=>'DIRECCION','name'=>'DIRECCION','type'=>'text','validation'=>'required|min:1|max:255','width'=>'col-sm-10'];
@@ -362,7 +363,20 @@
 	        | $this->style_css = ".style{....}";
 	        |
 	        */
-	        $this->style_css = NULL;
+	        $this->style_css = "
+	        #NOMBRE{
+	            text-transform: uppercase;
+	        }
+	        #RSOCIAL{
+	            text-transform: uppercase;
+	        }
+	        #DIRECCION{
+	            text-transform: uppercase;
+	        }
+	        #CIUDAD{
+	            text-transform: uppercase;
+	        }
+	        ";
 	        
 	        
 	        
