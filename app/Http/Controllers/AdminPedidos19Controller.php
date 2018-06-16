@@ -358,8 +358,10 @@
 
         public function getEdit($id){
             $pedido = Pedido::with('detalle')->with('cliente')->find($id);
+            $data = [];
+            $data['pedido'] = $pedido;
 
-            $this->cbView("pedidos.crear_pedido",["pedido",$pedido]);
+            $this->cbView("pedidos.editar_pedido",$data);
         }
 
         public function guardarPedido(Request $request){

@@ -30,7 +30,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <form method='post' action='{{CRUDBooster::mainpath('add-save')}}' class="form-inline">
+                        <form method='post' action='{{CRUDBooster::mainpath('edit-save')}}' class="form-inline">
                             <div class='form-group'>
                                 <label>CLIENTE</label>
                                 <div id="cliente"></div>
@@ -44,8 +44,8 @@
                             </div>
 
                             <div class='form-group'>
-                                <label>PEDIDO No.</label>
-                                <input id="numero_pedido" style="text-align: right;font-size: 14pt" disabled="" value="{{$pedido->numero_pedido+1}}"/>
+                                <label>PEDIDO No. </label>
+                                <input id="numero_pedido" style="text-align: right;font-size: 14pt" disabled="" value="{{ $pedido->numero_pedido }}"/>
 
                             </div>
                             <!-- etc .... -->
@@ -91,19 +91,19 @@
                         <table class="">
                             <tr>
                                 <td>SUBTOTAL</td>
-                                <td><input id="subtotal" style="text-align: right;width: 130px" type="text" value=""></td>
+                                <td><input id="subtotal" style="text-align: right;width: 130px" type="text" value="{{$pedido->subtotal}}"></td>
                             </tr>
                             <tr>
                                 <td>DESCUENTO</td>
-                                <td><input id="descuento" style="text-align: right;width: 130px" type="text" value="0"></td>
+                                <td><input id="descuento" style="text-align: right;width: 130px" type="text" value="{{$pedido->descuento}}"></td>
                             </tr>
                             <tr>
                                 <td>IVA</td>
-                                <td><input id="iva" style="text-align: right;width: 130px" type="text" value=""></td>
+                                <td><input id="iva" style="text-align: right;width: 130px" type="text" value="{{$pedido->iva}}"></td>
                             </tr>
                             <tr>
                                 <td>TOTAL</td>
-                                <td><input id="total" style="text-align: right;width: 130px;font-weight: bold;" type="text" value=""></td>
+                                <td><input id="total" style="text-align: right;width: 130px;font-weight: bold;" type="text" value="{{$pedido->total}}"></td>
                             </tr>
                         </table>
                     </div>
