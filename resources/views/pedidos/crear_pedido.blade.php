@@ -26,7 +26,6 @@
       </div>
   </div>--}}
   <div class='panel panel-default'>
-    <div class='panel-heading'>NUEVO PEDIDO</div>
     <div class='panel-body'>
         <div class="container">
             <div class="row">
@@ -96,7 +95,7 @@
                         </tr>
                         <tr>
                             <td>DESCUENTO</td>
-                            <td><input id="descuento" style="text-align: right;width: 130px" type="text" value=""></td>
+                            <td><input id="descuento" style="text-align: right;width: 130px" type="text" value="0"></td>
                         </tr>
                         <tr>
                             <td>IVA</td>
@@ -104,7 +103,7 @@
                         </tr>
                         <tr>
                             <td>TOTAL</td>
-                            <td><input id="total" style="text-align: right;width: 130px" type="text" value=""></td>
+                            <td><input id="total" style="text-align: right;width: 130px;font-weight: bold;" type="text" value=""></td>
                         </tr>
                     </table>
                 </div>
@@ -211,15 +210,19 @@
 
             var subtotal=0;
             var total=0;
-            var descuento=0;
+            var descuento = parseFloat($("#descuento").val());
 
             $("#detallePedido").data("kendoGrid").dataSource.data().forEach(function (item) {
                 subtotal+=item.precio_total
             });
 
-            $("#subtotal").val(subtotal.toFixed(2))
-            $("#iva").val((subtotal*0.12).toFixed(2));
-            total=parseFloat(subtotal+parseFloat($("#iva").val()));
+            $("#subtotal").val(subtotal.toFixed(2));
+
+
+            $("#iva").val(((subtotal-descuento)*0.12).toFixed(2));
+
+            total=parseFloat((subtotal-descuento)+parseFloat($("#iva").val()));
+
             $("#total").val(total.toFixed(2));
 
             $("#producto").data('kendoComboBox').value(null)
@@ -265,9 +268,18 @@
                var porcentaje = $("#porcentaje_descuento").val();
                var subtotal = $("#subtotal").val();
                var descontar = (subtotal*porcentaje)/100;
-               var total_descuento = subtotal - descontar;
+               //var total_descuento = subtotal - descontar;
 
-               $("#descuento").val(total_descuento.toFixed(2));
+               if(subtotal > 0 ){
+                   $("#descuento").val(descontar.toFixed(2));
+                   var iva = (subtotal-descontar)*0.12;
+                   $("#iva").val(iva.toFixed(2));
+                   var total = (subtotal-descontar)+iva;
+                   $("#total").val(total.toFixed(2));
+               }else{
+                   e.preventDefault();
+                   swal("Agregue productos al pedido");
+               }
            }
         });
 
