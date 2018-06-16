@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-06-2018 a las 20:13:30
+-- Tiempo de generación: 16-06-2018 a las 22:10:10
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.6.24
 
@@ -44,7 +44,8 @@ INSERT INTO `cliente1` (`ID`, `ruc`, `NOMBRE`, `RSOCIAL`, `DIRECCION`, `TELEFONO
 (1, NULL, 'valle lila', 'lubricantes el valle', 'los valles', '3001141', 'quito norte'),
 (2, NULL, 'pinto carlos', 'rec repuestos', 'guamani', '2345677', 'quito sur'),
 (3, NULL, 'GUAMAN CARLOS', 'ELECTRO GUAMAN', 'AV MALDONADO', '1234567', 'quito sur'),
-(4, '1718398710001', 'HENRY TAIPE', 'MECANICO', 'CAMALA METROPOLITANO', '3001141', 'quito sur');
+(4, '1718398710001', 'HENRY TAIPE', 'MECANICO', 'CAMALA METROPOLITANO', '3001141', 'quito sur'),
+(5, '0501464192', 'dvdvfvfd', 'vdfvdfvdf', 'vdfvdfv', '023001141', 'QUITO NORTE');
 
 -- --------------------------------------------------------
 
@@ -312,7 +313,12 @@ INSERT INTO `cms_logs` (`id`, `ipaddress`, `useragent`, `url`, `description`, `d
 (138, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.79 Safari/537.36', 'http://localhost/proveelectric/public/admin/login', 'Ingreso de mario12mcastro@hotmail.com desde la Dirección IP ::1', '', 2, '2018-06-07 00:32:41', NULL),
 (139, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.79 Safari/537.36', 'http://localhost/proveelectric/public/admin/logout', 'mario12mcastro@hotmail.com se desconectó', '', 2, '2018-06-07 00:46:50', NULL),
 (140, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36', 'http://localhost/proveelectric/public/admin/login', 'Ingreso de jekitabubitas@gmail.com desde la Dirección IP ::1', '', 1, '2018-06-16 15:43:12', NULL),
-(141, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36', 'http://localhost/proveelectric/public/admin/cliente1/add-save', 'Añadir nueva información  en CLIENTES', '', 1, '2018-06-16 16:37:10', NULL);
+(141, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36', 'http://localhost/proveelectric/public/admin/cliente1/add-save', 'Añadir nueva información  en CLIENTES', '', 1, '2018-06-16 16:37:10', NULL),
+(142, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36', 'http://localhost/proveelectric/public/admin/cliente1/add-save', 'Añadir nueva información  en CLIENTES', '', 1, '2018-06-16 19:13:08', NULL),
+(143, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36', 'http://localhost/proveelectric/public/admin/cliente1/delete/5', 'Eliminar información  en CLIENTES', '', 1, '2018-06-16 19:13:13', NULL),
+(144, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36', 'http://localhost/proveelectric/public/admin/cliente1/add-save', 'Añadir nueva información  en CLIENTES', '', 1, '2018-06-16 19:16:06', NULL),
+(145, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36', 'http://localhost/proveelectric/public/admin/cliente1/delete/5', 'Eliminar información  en CLIENTES', '', 1, '2018-06-16 19:16:36', NULL),
+(146, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36', 'http://localhost/proveelectric/public/admin/cliente1/add-save', 'Añadir nueva información  en CLIENTES', '', 1, '2018-06-16 19:20:46', NULL);
 
 -- --------------------------------------------------------
 
@@ -736,6 +742,7 @@ CREATE TABLE `pedidos` (
   `cliente_id` int(11) NOT NULL,
   `numero_pedido` int(11) NOT NULL,
   `subtotal` decimal(18,2) NOT NULL,
+  `descuento` decimal(18,2) NOT NULL,
   `iva` decimal(18,2) NOT NULL,
   `total` decimal(18,2) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -746,11 +753,11 @@ CREATE TABLE `pedidos` (
 -- Volcado de datos para la tabla `pedidos`
 --
 
-INSERT INTO `pedidos` (`id`, `cliente_id`, `numero_pedido`, `subtotal`, `iva`, `total`, `created_at`, `updated_at`) VALUES
-(14, 1, 1, '6.16', '0.74', '6.90', '2018-06-02 21:51:33', '2018-06-02 21:51:33'),
-(15, 2, 2, '12.80', '1.54', '14.34', '2018-06-06 20:57:07', '2018-06-06 20:57:07'),
-(16, 3, 3, '11.20', '1.34', '12.54', '2018-06-07 00:34:52', '2018-06-07 00:34:52'),
-(17, 1, 4, '11.00', '1.32', '12.32', '2018-06-07 00:45:50', '2018-06-07 00:45:50');
+INSERT INTO `pedidos` (`id`, `cliente_id`, `numero_pedido`, `subtotal`, `descuento`, `iva`, `total`, `created_at`, `updated_at`) VALUES
+(14, 1, 1, '6.16', '0.00', '0.74', '6.90', '2018-06-02 21:51:33', '2018-06-02 21:51:33'),
+(15, 2, 2, '12.80', '0.00', '1.54', '14.34', '2018-06-06 20:57:07', '2018-06-06 20:57:07'),
+(16, 3, 3, '11.20', '0.00', '1.34', '12.54', '2018-06-07 00:34:52', '2018-06-07 00:34:52'),
+(17, 1, 4, '11.00', '0.00', '1.32', '12.32', '2018-06-07 00:45:50', '2018-06-07 00:45:50');
 
 -- --------------------------------------------------------
 
@@ -956,7 +963,7 @@ ALTER TABLE `provedor`
 -- AUTO_INCREMENT de la tabla `cliente1`
 --
 ALTER TABLE `cliente1`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `cms_apicustom`
 --
@@ -986,7 +993,7 @@ ALTER TABLE `cms_email_templates`
 -- AUTO_INCREMENT de la tabla `cms_logs`
 --
 ALTER TABLE `cms_logs`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
 --
 -- AUTO_INCREMENT de la tabla `cms_menus`
 --
