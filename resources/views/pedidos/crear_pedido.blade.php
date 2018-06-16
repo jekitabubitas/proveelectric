@@ -236,13 +236,14 @@
             //console.log($("#cliente").data('kendoComboBox').value())
             var cliente=$("#cliente").data('kendoComboBox').dataItem();
             var formdata = new FormData();
-            formdata.append("cliente_id",cliente.ID)
-            formdata.append("numero_pedido",$("#numero_pedido").val())
-            formdata.append("subtotal",$("#subtotal").val())
-            formdata.append("iva",$("#iva").val())
-            formdata.append("total",$("#total").val())
-            console.log(JSON.stringify($("#detallePedido").data("kendoGrid").dataSource.data()))
-            formdata.append("detalle",JSON.stringify($("#detallePedido").data("kendoGrid").dataSource.data()))
+            formdata.append("cliente_id",cliente.ID);
+            formdata.append("numero_pedido",$("#numero_pedido").val());
+            formdata.append("subtotal",$("#subtotal").val());
+            formdata.append("descuento",$("#descuento").val());
+            formdata.append("iva",$("#iva").val());
+            formdata.append("total",$("#total").val());
+            console.log(JSON.stringify($("#detallePedido").data("kendoGrid").dataSource.data()));
+            formdata.append("detalle",JSON.stringify($("#detallePedido").data("kendoGrid").dataSource.data()));
 
 
             $.ajax({

@@ -363,6 +363,7 @@
 	        $ped->cliente_id = $request->get("cliente_id");
 	        $ped->numero_pedido = $request->get("numero_pedido");
 	        $ped->subtotal = $request->get("subtotal");
+	        $ped->descuento = $request->get("descuento");
 	        $ped->iva = $request->get("iva");
 	        $ped->total = $request->get("total");
 
