@@ -8,6 +8,7 @@
     <title>Document</title>
 </head>
 <body onload="window.print()">
-hjniuhnuh
+<h4 style="text-align: center;">Importadora Proveelectric</h4>
+{{$pedido->cliente['NOMBRE']}}
 </body>
 </html>
