@@ -84,7 +84,7 @@
                     <div class="container">
                         <div class="row">
                             <label for="">Descuento:</label>
-                            <input type="text">%
+                            <input style="text-align: right;" id="porcentaje_descuento" type="number">%
                         </div>
                     </div>
                 </div>
@@ -257,7 +257,19 @@
             }).error(function (err) {
                 //alert(err.message)
             })
-        })
+        });
+
+        //CAMPO DE DESCUENTO
+        $("#porcentaje_descuento").on("keydown",function (e) {
+           if(e.keyCode == 13){
+               var porcentaje = $("#porcentaje_descuento").val();
+               var subtotal = $("#subtotal").val();
+               var descontar = (subtotal*porcentaje)/100;
+               var total_descuento = subtotal - descontar;
+
+               $("#descuento").val(total_descuento.toFixed(2));
+           }
+        });
 
     </script>
 @endsection
