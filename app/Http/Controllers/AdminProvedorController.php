@@ -261,6 +261,7 @@
 	    */
 	    public function hook_before_add(&$postdata) {        
 	        //Your code here
+            $postdata['NOMBRE'] = strtoupper($postdata['NOMBRE']);
 
 	    }
 
