@@ -87,7 +87,7 @@
                             <td><input id="subtotal" style="text-align: right;width: 130px" type="text" value=""></td>
                         </tr>
                         <tr>
-                            <td><input type="text"></td>
+
                             <td>DESCUENTO</td>
                             <td><input id="descuento" style="text-align: right;width: 130px" type="text" value=""></td>
                         </tr>
@@ -198,7 +198,7 @@
                 descripcion:seleccionado.descripcion,
                 precio_unit:seleccionado.precio,
                 precio_total:$("#cantidad").val()*seleccionado.precio,
-                descuento:$("#cantidad").val()*seleccionado.precio
+               
             };
             $("#detallePedido").data("kendoGrid").dataSource.add(linea);
 
