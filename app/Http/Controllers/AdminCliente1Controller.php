@@ -447,8 +447,12 @@
 	    */
 	    public function hook_before_add(&$postdata) {        
 	        //Your code here
+            $postdata['NOMBRE'] = strtoupper($postdata['NOMBRE']);
+            $postdata['RSOCIAL'] = strtoupper($postdata['RSOCIAL']);
+            $postdata['DIRECCION'] = strtoupper($postdata['DIRECCION']);
+            $postdata['CIUDAD'] = strtoupper($postdata['CIUDAD']);
 
-	    }
+        }
 
 	    /* 
 	    | ---------------------------------------------------------------------- 
