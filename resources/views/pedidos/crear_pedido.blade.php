@@ -204,7 +204,8 @@
                 descripcion:seleccionado.descripcion,
                 precio_unit:seleccionado.precio,
                 precio_total:$("#cantidad").val()*seleccionado.precio,
-               
+                producto_id:seleccionado.id
+
             };
             $("#detallePedido").data("kendoGrid").dataSource.add(linea);
 

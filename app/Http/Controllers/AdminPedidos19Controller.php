@@ -387,6 +387,7 @@
                     $det->descripcion = $d->descripcion;
                     $det->precio_unit = $d->precio_unit;
                     $det->precio_total = $d->precio_total;
+                    $det->producto_id = $d->producto_id;
 
                     $det->save();
                 }
@@ -397,7 +398,45 @@
 
             return response()->json($respuesta);
         }
+        public function modificarPedido(Request $request,$id){
+            $detalle = json_decode($request->get("detalle"));
 
+            $ped = Pedido::find($id);
+            $ped->cliente_id = $request->get("cliente_id");
+            $ped->numero_pedido = $request->get("numero_pedido");
+            $ped->subtotal = $request->get("subtotal");
+            $ped->descuento = $request->get("descuento");
+            $ped->iva = $request->get("iva");
+            $ped->total = $request->get("total");
+
+            $respuesta = false;
+            try{
+                $ped->save();
+                $detallePedido = DetallePedido::where("pedidos_id",$id)->get();
+                foreach($detallePedido as $det){
+                    $dx = DetallePedido::find($det->id);
+                    $dx->delete();
+                }
+                //echo var_dump($detalle);
+                foreach($detalle as $d){
+                    $det = new DetallePedido();
+                    $det->pedidos_id = $ped->id;
+                    $det->codigo = $d->codigo;
+                    $det->cantidad = $d->cantidad;
+                    $det->descripcion = $d->descripcion;
+                    $det->precio_unit = $d->precio_unit;
+                    $det->precio_total = $d->precio_total;
+                    $det->producto_id = $d->producto_id;
+
+                    $det->save();
+                }
+                $respuesta = true;
+            }catch(Exception $ex){
+                abort(404);
+            }
+
+            return response()->json($respuesta);
+        }
         public function imprimirPedido($id){
             $pedido = Pedido::with('detalle')->with('cliente')->find($id);
             return vieW("pedidos.imprimir",["pedido"=>$pedido]);

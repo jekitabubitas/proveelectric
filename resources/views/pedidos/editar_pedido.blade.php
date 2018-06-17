@@ -2,6 +2,7 @@
 @section('content')
     <link rel="stylesheet" href="{{asset("css/kendo.common.min.css")}}">
     <link rel="stylesheet" href="{{asset("css/kendo.bootstrap.min.css")}}">
+    <link rel="stylesheet" href="{{asset("css/kendo.bootstrap.mobile.min.css")}}">
 
 
     <!-- Your html goes here -->
@@ -67,6 +68,9 @@
                             <div class='form-group'>
                                 <br>
                                 <button id="agregar" type="button" class="btn btn-success">AGREGAR</button>
+                                <button id="modificarLinea" style="display: none" type="button" class="btn btn-warning" >MODIFICAR</button>
+                                <button id="eliminarLinea" style="display: none" type="button" class="btn btn-danger" >ELIMINAR</button>
+                                <button id="cancelar" style="display: none" type="button" class="btn btn-default" >CANCELAR</button>
                             </div>
 
                         </form>
@@ -112,12 +116,57 @@
 
 
             <div class='panel-footer'>
-                <input id="guardar" type='submit' class='btn btn-primary' value='GUARDAR'/>
+                <input id="guardar" type='submit' class='btn btn-primary' value='MODIFICAR'/>
             </div>
         </div>
-        <script src="{{asset("js/jquery-3.3.1.min.js")}}"></script>
+        <script src="{{asset("js/jquery.min.js")}}"></script>
+
         <script>
+            //Methods
+            function resetLine(){
+                $("#producto").data("kendoComboBox").value(null);
+                $("#cantidad").val(null);
+                $("#agregar").show();
+                $("#modificarLinea").hide();
+                $("#eliminarLinea").hide();
+                $("#cancelar").hide();
+            }
+
+            function calcular() {
+                var subtotal=0;
+                var total=0;
+                var descuento = parseFloat($("#descuento").val());
+
+                $("#detallePedido").data("kendoGrid").dataSource.data().forEach(function (item) {
+                    subtotal+=parseFloat(item.precio_total)
+                });
+
+                $("#subtotal").val(subtotal.toFixed(2));
+
+
+                $("#iva").val(((subtotal-descuento)*0.12).toFixed(2));
+
+                total=parseFloat((subtotal-descuento)+parseFloat($("#iva").val()));
+
+                $("#total").val(total.toFixed(2));
+
+            }
+
+            function prepareLine() {
+                var seleccionado= $("#producto").data('kendoComboBox').dataItem();
+                var linea = {
+                    codigo:seleccionado.codigo,
+                    cantidad:$("#cantidad").val(),
+                    descripcion:seleccionado.descripcion,
+                    precio_unit:seleccionado.precio,
+                    precio_total:$("#cantidad").val()*seleccionado.precio,
+                    producto_id:seleccionado.id
+                };
+                return linea;
+            }
+
             $(document).ready(function () {
+
                 $("#cliente").kendoComboBox({
                     dataTextField: "NOMBRE",
                     dataValueField: "ID",
@@ -126,19 +175,20 @@
                             read:"http://localhost/proveelectric/public/clientesData"
                         }
                     },
+                    value:'{{$pedido->cliente_id}}',
                     filter: "contains",
                     suggest: true,
                     index: 3
                 });
                 $("#vendedor").kendoComboBox({
                     dataTextField: "NOMBRE",
-                    dataValueField: "ID",
+                    dataValueField: "NOMBRE",
                     dataSource:[
-                        {ID:1,NOMBRE:"MARCELO CASTRO"},
-                        {ID:1,NOMBRE:"OFICINA"},
-                        {ID:1,NOMBRE:"MIGUEL PORTILLO"},
-                        {ID:1,NOMBRE:"JUAN CARLOS LEON"},
-                        {ID:1,NOMBRE:"ANDRES ORTEGA"}
+                        {NOMBRE:"MARCELO CASTRO"},
+                        {NOMBRE:"OFICINA"},
+                        {NOMBRE:"MIGUEL PORTILLO"},
+                        {NOMBRE:"JUAN CARLOS LEON"},
+                        {NOMBRE:"ANDRES ORTEGA"}
                     ],
                     filter: "contains",
                     suggest: true,
@@ -157,20 +207,51 @@
                     filter: "contains",
                     suggest: true
                 });
+
                 $("#detallePedido").kendoGrid({
                     dataSource: {
                         transport: {
                             read:function (e) {
-                                e.success([])
+                                var data = [];
+                                '@foreach($pedido->detalle as $det)'
+                                data.push({
+                                    id:'{{$det->id}}',
+                                    pedidos_id:'{{$det->pedidos_id}}',
+                                    codigo:'{{$det->codigo}}',
+                                    cantidad:'{{$det->cantidad}}',
+                                    descripcion:'{{$det->descripcion}}',
+                                    precio_unit:'{{$det->precio_unit}}',
+                                    precio_total:'{{$det->precio_total}}',
+                                    producto_id:'{{$det->producto_id}}'
+                                });
+                                '@endforeach'
+                                e.success(data);
                             }
                         },
-                        pageSize: 20
+                        schema:{
+                            model:{
+                                id:"id"
+                            }
+                        }
                     },
                     height: "250px",
                     width:200,
-                    filterable:true,
-                    selectable:true,
+                    //filterable:true,
                     sortable: true,
+                    selectable:true,
+                    change:function(){
+                        var selectedRows = this.select();
+                        var dataItem = this.dataItem(selectedRows[0]);
+
+                      $("#producto").data("kendoComboBox").value(dataItem.producto_id);
+                      $("#cantidad").val(dataItem.cantidad);
+
+                      $("#agregar").hide();
+                      $("#modificarLinea").show();
+                      $("#eliminarLinea").show();
+                      $("#cancelar").show();
+
+                    },
                     columns: [{
                         field: "codigo",
                         title:"CODIGO"
@@ -190,45 +271,20 @@
                             field: "precio_total",
                             title:"P/TOTAL",
                             template:'<div style="text-align: right">#=kendo.toString(precio_total,"n2")#</div>',
-                        }]
+                        }
+                        ]
                 });
             });
 
             ///BOTON AGREGAR
             //1.-
             $("#agregar").click(function () {
-                var seleccionado= $("#producto").data('kendoComboBox').dataItem();
-                var linea = {
-                    codigo:seleccionado.codigo,
-                    cantidad:$("#cantidad").val(),
-                    descripcion:seleccionado.descripcion,
-                    precio_unit:seleccionado.precio,
-                    precio_total:$("#cantidad").val()*seleccionado.precio,
-
-                };
+                var linea = prepareLine();
                 $("#detallePedido").data("kendoGrid").dataSource.add(linea);
 
-                var subtotal=0;
-                var total=0;
-                var descuento = parseFloat($("#descuento").val());
-
-                $("#detallePedido").data("kendoGrid").dataSource.data().forEach(function (item) {
-                    subtotal+=item.precio_total
-                });
-
-                $("#subtotal").val(subtotal.toFixed(2));
-
-
-                $("#iva").val(((subtotal-descuento)*0.12).toFixed(2));
-
-                total=parseFloat((subtotal-descuento)+parseFloat($("#iva").val()));
-
-                $("#total").val(total.toFixed(2));
-
-                $("#producto").data('kendoComboBox').value(null)
-                $("#cantidad").val(null)
-                //$("#descuento").val(total*#descuento.toFixed())
-            })
+                calcular();
+                resetLine();
+            });
 
 
             ///BOTON GUARDAR
@@ -247,7 +303,7 @@
 
 
                 $.ajax({
-                    url:"/proveelectric/public/guardarPedido",
+                    url:"/proveelectric/public/modificarPedido/"+'{{$pedido->id}}',
                     type:"POST",
                     data:formdata,
                     dataType:"html",
@@ -282,6 +338,36 @@
                         swal("Agregue productos al pedido");
                     }
                 }
+            });
+
+            //Cancelar la modificación de la linea
+            $("#cancelar").click(function(){
+                resetLine();
+            });
+
+            //Eliminar la linea
+            $("#eliminarLinea").click(function(){
+                var grid = $("#detallePedido").data("kendoGrid");
+                var selectedRows = grid.select();
+                grid.removeRow(selectedRows[0]);
+                calcular();
+                resetLine();
+            });
+
+            $("#modificarLinea").click(function(){
+                var grid = $("#detallePedido").data("kendoGrid");
+                var selectedRows = grid.select();
+                var index = $(selectedRows[0]).index();
+                var linea = prepareLine();
+
+                grid.dataSource.data()[index].set("codigo",linea.codigo);
+                grid.dataSource.data()[index].set("cantidad",linea.cantidad);
+                grid.dataSource.data()[index].set("descripcion",linea.descripcion);
+                grid.dataSource.data()[index].set("precio_unit",linea.precio_unit);
+                grid.dataSource.data()[index].set("precio_total",linea.precio_total);
+
+                calcular();
+                resetLine();
             });
 
         </script>

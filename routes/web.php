@@ -21,6 +21,7 @@ Route::get('/productosData', "AdminProductoController@listado");
 
 
 Route::post('/guardarPedido', "AdminPedidos19Controller@guardarPedido");
+Route::post('/modificarPedido/{id}', "AdminPedidos19Controller@modificarPedido");
 
 Route::get('admin/pedido/pedido_print/{id}', "AdminPedidos19Controller@imprimirPedido");
 
