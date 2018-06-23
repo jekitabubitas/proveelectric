@@ -169,7 +169,7 @@
 
                 $("#cliente").kendoComboBox({
                     dataTextField: "NOMBRE",
-                    dataValueField: "ID",
+                    dataValueField: "id",
                     dataSource:{
                         transport:{
                             read:"http://localhost/proveelectric/public/clientesData"
@@ -292,7 +292,7 @@
                 //console.log($("#cliente").data('kendoComboBox').value())
                 var cliente=$("#cliente").data('kendoComboBox').dataItem();
                 var formdata = new FormData();
-                formdata.append("cliente_id",cliente.ID);
+                formdata.append("cliente_id",cliente.id);
                 formdata.append("numero_pedido",$("#numero_pedido").val());
                 formdata.append("subtotal",$("#subtotal").val());
                 formdata.append("descuento",$("#descuento").val());

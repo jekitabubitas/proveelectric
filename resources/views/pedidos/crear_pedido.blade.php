@@ -120,7 +120,7 @@
         $(document).ready(function () {
             $("#cliente").kendoComboBox({
                 dataTextField: "NOMBRE",
-                dataValueField: "ID",
+                dataValueField: "id",
                 dataSource:{
                     transport:{
                         read:"http://localhost/proveelectric/public/clientesData"
@@ -132,13 +132,13 @@
             });
             $("#vendedor").kendoComboBox({
                 dataTextField: "NOMBRE",
-                dataValueField: "ID",
+                dataValueField: "id",
                 dataSource:[
-                    {ID:1,NOMBRE:"MARCELO CASTRO"},
-                    {ID:1,NOMBRE:"OFICINA"},
-                    {ID:1,NOMBRE:"MIGUEL PORTILLO"},
-                    {ID:1,NOMBRE:"JUAN CARLOS LEON"},
-                    {ID:1,NOMBRE:"ANDRES ORTEGA"}
+                    {id:1,NOMBRE:"MARCELO CASTRO"},
+                    {id:1,NOMBRE:"OFICINA"},
+                    {id:1,NOMBRE:"MIGUEL PORTILLO"},
+                    {id:1,NOMBRE:"JUAN CARLOS LEON"},
+                    {id:1,NOMBRE:"ANDRES ORTEGA"}
                 ],
                 filter: "contains",
                 suggest: true,
@@ -237,7 +237,7 @@
             //console.log($("#cliente").data('kendoComboBox').value())
             var cliente=$("#cliente").data('kendoComboBox').dataItem();
             var formdata = new FormData();
-            formdata.append("cliente_id",cliente.ID);
+            formdata.append("cliente_id",cliente.id);
             formdata.append("numero_pedido",$("#numero_pedido").val());
             formdata.append("subtotal",$("#subtotal").val());
             formdata.append("descuento",$("#descuento").val());
