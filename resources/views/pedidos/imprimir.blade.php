@@ -78,45 +78,47 @@
                                 <td class="text-center"><strong>DESCRIPCION</strong></td>
                                 <td class="text-center"><strong>CANTIDAD</strong></td>
                                 <td class="text-right"><strong>PRECIO</strong></td>
+                                <td class="text-right"><strong>PRECIO TOTAL</strong></td>
                             </tr>
                             </thead>
                             <tbody>
                             <!-- foreach ($order->lineItems as $line) or some such thing here -->
+                            @foreach($pedido->detalle as $det)
                             <tr>
-                                <td>Crosin</td>
-                                <td class="text-center">100 mg</td>
-                                <td class="text-center">10</td>
-                                <td class="text-right">30 INR</td>
+                                <td>{{$det['codigo']}}</td>
+                                <td class="text-center">{{$det['descripcion']}}</td>
+                                <td class="text-center">{{$det['cantidad']}}</td>
+                                <td class="text-right">{{$det['precio_unit']}}</td>
+                                <td class="text-right">{{$det['precio_total']}}</td>
                             </tr>
-                            <tr>
-                                <td>Paracetamol</td>
-                                <td class="text-center">20 mg</td>
-                                <td class="text-center">3</td>
-                                <td class="text-right">50 INR</td>
-                            </tr>
+                            @endforeach
                             <tr>
                                 <td class="thick-line"></td>
                                 <td class="thick-line"></td>
-                                <td class="thick-line text-center"><strong>SUBTOTAL</strong></td>
-                                <td class="thick-line text-right">80 INR</td>
+                                <td class="thick-line"></td>
+                                <td class="thick-line text-right"><strong>SUBTOTAL</strong></td>
+                                <td class="thick-line text-right">{{$pedido->subtotal}}</td>
                             </tr>
                             <tr>
                                 <td class="no-line"></td>
                                 <td class="no-line"></td>
-                                <td class="no-line text-center"><strong>DESCUENTO</strong></td>
-                                <td class="no-line text-right">15 INR</td>
+                                <td class="no-line"></td>
+                                <td class="no-line text-right"><strong>DESCUENTO</strong></td>
+                                <td class="no-line text-right">{{$pedido->descuento}}</td>
                             </tr>
                             <tr>
                                 <td class="no-line"></td>
                                 <td class="no-line"></td>
-                                <td class="no-line text-center"><strong>IVA</strong></td>
-                                <td class="no-line text-right">15 INR</td>
+                                <td class="no-line"></td>
+                                <td class="no-line text-right"><strong>IVA</strong></td>
+                                <td class="no-line text-right">{{$pedido->iva}}</td>
                             </tr>
                             <tr>
                                 <td class="no-line"></td>
                                 <td class="no-line"></td>
-                                <td class="no-line text-center"><strong>TOTAL</strong></td>
-                                <td class="no-line text-right">95 INR</td>
+                                <td class="no-line"></td>
+                                <td class="no-line text-right"><strong>TOTAL</strong></td>
+                                <td class="no-line text-right">{{$pedido->total}}</td>
                             </tr>
                             </tbody>
                         </table>

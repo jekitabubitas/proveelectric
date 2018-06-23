@@ -13,6 +13,6 @@ class Pedido extends Model
     }
 
     public function cliente(){
-        return $this->belongsTo('App\Cliente','cliente_id','ID');
+        return $this->belongsTo('App\Cliente','cliente_id','id');
     }
 }
