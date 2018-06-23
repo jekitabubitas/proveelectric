@@ -14,7 +14,7 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
-            <div class="invoice-title">
+            <div class="invoice-t>itle">
                <h3 class="pull-right">N.PEDIDO {{$pedido->numero_pedido}}</h3>
             </div>
             <hr>
@@ -27,8 +27,10 @@
                 </div>
                 <div class="col-xs-6 text-right">
                     <address>
+                        &nbsp
                         <strong>CIUDAD:</strong>
                         {{$pedido->cliente['CIUDAD']}}
+                        &nbsp
                     </address>
                 </div>
             </div>
@@ -43,16 +45,18 @@
                 </div>
                 <div class="col-xs-6 text-right">
                     <address>
+                        &nbsp
                         <strong>VENDEDOR:</strong>
                         {{$pedido->vendedor}}
-
+                        &nbsp
                     </address>
                 </div>
                 <div class="col-xs-6 text-right">
                     <address>
+                        &nbsp
                         <strong>FECHA/HORA:</strong>
                         {{$pedido->created_at}}
-
+                        &nbsp
                     </address>
                 </div>
             </div>
